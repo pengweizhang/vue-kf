@@ -13,11 +13,9 @@ const service = axios.create({
 service.interceptors.request.use(config => {
   if (store.getters.token) {
     config.headers['X-Token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+    config.headers['Accept'] = '*/*'
+    config.headers['Authorization'] = '1111111'
   }
-  // config.headers['Authorization'] = '1111111'
-  // config.headers['X-Token'] = '222222'
-  // config.headers['Accept'] = '*/*'
-  // config.headers['Authorization'] = 'eyJhbGciOiJIUzUxMiJ9.eyJyYW5kb21LZXkiOiJmYWFqcCIsInN1YiI6InRlc3QifQ.58wA_6z2JJLwyhS9jf5buerYYN0iri3aRdg7Jw_AW_5ZyjEWFGsNu8O0NMIr1YrZI1MNI40VgaoGJoOA752fZw'
   return config
 }, error => {
   // Do something with request error

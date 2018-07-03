@@ -36,17 +36,17 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="Actions" width="200">
+      <el-table-column align="center" label="Actions" width="260">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.edit" type="success" @click="confirmEdit(scope.row)" size="small"
-                     icon="el-icon-circle-check-outline">Ok
-          </el-button>
-          <el-button v-if="scope.row.edit" class='cancel-btn' size="small" icon="el-icon-refresh" type="warning"
-                     @click="cancelEdit(scope.row)">cancel
-          </el-button>
-          <el-button v-else type="primary" @click='scope.row.edit=!scope.row.edit' size="small" icon="el-icon-edit">
-            Edit
-          </el-button>
+          <el-button-group v-if="scope.row.edit">
+            <el-button type="success" @click="confirmEdit(scope.row)" size="small" icon="el-icon-circle-check-outline">Ok</el-button>
+            <el-button size="small" icon="el-icon-caret-right" type="primary" @click="testEdit(scope.row)">Test</el-button>
+            <el-button size="small" icon="el-icon-refresh" type="warning" @click="cancelEdit(scope.row,scope.$index)">Cancel</el-button>
+          </el-button-group>
+          <div v-else>
+            <el-button type="primary" @click='scope.row.edit=!scope.row.edit' size="small" icon="el-icon-edit">Edit</el-button>
+            <el-button type="primary" @click='addMp' size="small" icon="el-icon-plus">Add</el-button>
+          </div>
         </template>
       </el-table-column>
 
@@ -62,7 +62,14 @@
     data: function() {
       return {
         list: null,
-        listLoading: true
+        listLoading: true,
+        temp: {
+          mp_name: null,
+          mp_appid: null,
+          mp_appsecret: null,
+          mp_mdftime: null,
+          edit: true
+        }
       }
     },
     created() {
@@ -85,12 +92,25 @@
           return v
         })
       },
-      cancelEdit(row) {
-        row.title = row.originalTitle
-        row.edit = false
+      addMp() {
+        this.list.push(this.temp)
+      },
+      cancelEdit(row, index) {
+        if (!row.mp_name) {
+          this.list.splice(index, 1)
+        } else {
+          row.title = row.originalTitle
+          row.edit = false
+        }
         this.$message({
           message: 'The title has been restored to the original value',
           type: 'warning'
+        })
+      },
+      testEdit() {
+        this.$message({
+          message: 'Get token Successfully',
+          type: 'success'
         })
       },
       confirmEdit(row) {

@@ -61,13 +61,13 @@ export const constantRouterMap = [
         path: 'config',
         name: 'Config-mp',
         component: () => import('@/views/weixinmp/config'),
-        meta: { title: '配 置 项', icon: 'tree' }
+        meta: { title: '配 置 项', icon: '' }
       },
       {
         path: 'template',
         name: 'Template-mp',
         component: () => import('@/views/weixinmp/template'),
-        meta: { title: '消息模板', icon: 'table' }
+        meta: { title: '消息模板', icon: '' }
       }
     ]
   },
