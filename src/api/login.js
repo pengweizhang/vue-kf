@@ -1,21 +1,20 @@
 import request from '@/utils/request'
 
-export function login(username, password) {
+export function login(account, password) {
   return request({
-    url: '/user/login',
+    url: '/vue/login ',
     method: 'post',
     data: {
-      username,
+      account,
       password
     }
   })
 }
 
-export function getInfo(token) {
+export function getInfo() {
   return request({
-    url: '/user/info',
-    method: 'get',
-    params: { token }
+    url: '/vue/user_info',
+    method: 'get'
   })
 }
 

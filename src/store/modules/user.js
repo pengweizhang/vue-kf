@@ -5,7 +5,9 @@ const user = {
   state: {
     token: getToken(),
     name: '',
+    account: '',
     avatar: '',
+    status: '',
     roles: []
   },
 
@@ -16,8 +18,14 @@ const user = {
     SET_NAME: (state, name) => {
       state.name = name
     },
+    SET_ACCOUNT: (state, account) => {
+      state.account = account
+    },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
+    },
+    SET_STATUS: (state, status) => {
+      state.status = status
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
@@ -30,9 +38,11 @@ const user = {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
+          console.info('登录')
+          console.info(response)
           const data = response.data
-          setToken(data.token)
-          commit('SET_TOKEN', data.token)
+          setToken(data.jwtToken)
+          commit('SET_TOKEN', data.jwtToken)
           resolve()
         }).catch(error => {
           reject(error)
@@ -41,17 +51,21 @@ const user = {
     },
 
     // 获取用户信息
-    GetInfo({ commit, state }) {
+    GetInfo({ commit }) {
       return new Promise((resolve, reject) => {
-        getInfo(state.token).then(response => {
-          const data = response.data
-          if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-            commit('SET_ROLES', data.roles)
+        getInfo().then(response => {
+          console.info('获取用户信息')
+          console.info(response)
+          const user = response.data.user
+          if (user.roles && user.roles.length > 0) { // 验证返回的roles是否是一个非空数组
+            commit('SET_ROLES', user.roles)
           } else {
             reject('getInfo: roles must be a non-null array !')
           }
-          commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
+          commit('SET_NAME', user.name)
+          commit('SET_ACCOUNT', user.account)
+          commit('SET_STATUS', user.status)
+          commit('SET_AVATAR', user.avatar)
           resolve(response)
         }).catch(error => {
           reject(error)

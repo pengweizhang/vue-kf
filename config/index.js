@@ -15,6 +15,11 @@ module.exports = {
           target: 'http://dev.18mtong.net/m?xwl=pw_test/',
           secure: false,
           changeOrigin: true
+      },
+      '/**':{
+        target: 'http://192.168.1.43:8082',
+        secure: false,
+        changeOrigin: true
       }
     },
 

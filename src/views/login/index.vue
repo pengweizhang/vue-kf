@@ -26,17 +26,17 @@
 </template>
 
 <script>
-import { isvalidUsername } from '@/utils/validate'
+// import { isvalidUsername } from '@/utils/validate'
 
 export default {
   name: 'login',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!isvalidUsername(value)) {
-        callback(new Error('请输入正确的用户名'))
-      } else {
-        callback()
-      }
+      // if (!isvalidUsername(value)) {
+      //   callback(new Error('请输入正确的用户名'))
+      // } else {
+      callback()
+      // }
     }
     const validatePass = (rule, value, callback) => {
       if (value.length < 5) {
@@ -47,8 +47,8 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: 'admin'
+        username: 'string',
+        password: 'string'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],

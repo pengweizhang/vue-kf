@@ -68,10 +68,49 @@ export const constantRouterMap = [
         name: 'Template-mp',
         component: () => import('@/views/weixinmp/template'),
         meta: { title: '消息模板', icon: '' }
+      },
+      {
+        path: 'sendmsg',
+        name: 'Sendmsg-mp',
+        component: () => import('@/views/weixinmp/sendmsg'),
+        meta: { title: '推送通知', icon: '' }
       }
     ]
   },
 
+  {
+    path: '/system',
+    component: Layout,
+    redirect: '/system/sysmenu',
+    name: 'system',
+    meta: { title: '系统管理', icon: 'table' },
+    children: [
+      {
+        path: 'sysmenu',
+        name: 'sysmenu',
+        component: () => import('@/views/system/sysmenu'),
+        meta: { title: '菜单管理', icon: '' }
+      }, {
+        path: 'sysuser',
+        name: 'sysuser',
+        component: () => import('@/views/system/sysuser'),
+        meta: { title: '用户管理', icon: '' }
+      }
+    ]
+  },
+
+  {
+    path: '/tree',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Tree',
+        component: () => import('@/views/tree/index'),
+        meta: { title: '权限管理', icon: 'dashboard' }
+      }
+    ]
+  },
   {
     path: '/druid',
     component: Layout,
