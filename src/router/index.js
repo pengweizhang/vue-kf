@@ -91,6 +91,11 @@ export const constantRouterMap = [
         component: () => import('@/views/system/sysmenu'),
         meta: { title: '菜单管理', icon: '' }
       }, {
+        path: 'sysrule',
+        name: 'sysrule',
+        component: () => import('@/views/system/sysrule'),
+        meta: { title: '角色管理', icon: '' }
+      }, {
         path: 'sysuser',
         name: 'sysuser',
         component: () => import('@/views/system/sysuser'),
